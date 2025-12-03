@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Find Ustad - Landing</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background-color: #fff; }
+    
+    /* Navbar */
+    .navbar { padding: 15px 0; }
+    .search-bg { background-color: #EAEAEA; border-radius: 50px; padding: 10px 20px; width: 350px; }
+    .search-bg input { background: transparent; border: none; outline: none; width: 100%; margin-left: 10px; color: #555; }
+    .btn-login { background-color: #6d8c6b; color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; border: none; text-decoration: none; display: inline-block; }
+    .btn-login:hover { background-color: #5a7558; color: white; }
+    .logo-text { font-weight: bold; font-size: 1.25rem; color: #6d8c6b; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+
+    /* Hero Section */
+    .hero-container { position: relative; margin-top: 20px; border-radius: 20px; overflow: hidden; }
+    .hero-img { width: 100%; height: auto; display: block; }
+    
+    /* Tombol Transparan (Overlay) - Klik area tombol di gambar */
+    .hero-btn-overlay {
+      position: absolute;
+      bottom: 8%;  
+      right: 5%;   
+      width: 25%;  
+      height: 15%; 
+      background: rgba(255, 255, 255, 0); /* Transparan */
+      cursor: pointer;
+      z-index: 10;
+      border-radius: 10px;
+    }
+
+    .section-header { text-align: center; color: #6d8c6b; font-weight: bold; font-size: 1.8rem; margin: 60px 0 40px; }
+    
+    /* Ustad Card */
+    .ustad-card {
+      border: 1px solid #eee;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform 0.3s;
+      cursor: pointer;
+      text-align: center;
+      padding-bottom: 15px;
+      height: 100%;
+      background: white;
+    }
+    .ustad-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .ustad-photo { width: 100%; height: 280px; object-fit: cover; object-position: top; background: #f0f0f0; }
+    .ustad-name { font-weight: bold; font-size: 1.1rem; margin-top: 15px; color: #333; }
+    .ustad-spec { color: #6d8c6b; font-size: 0.9rem; margin-bottom: 10px; }
+
+    /* Footer */
+    .footer { margin-top: 100px; padding: 50px 0; background-color: #f9fafb; font-size: 0.9rem; }
+    .footer h6 { color: #6d8c6b; font-weight: bold; margin-bottom: 20px; }
+    .footer a { text-decoration: none; color: #666; margin-bottom: 10px; display: block; }
+  </style>
+</head>
+<body>
+
+  <div class="container d-flex justify-content-between align-items-center py-3">
+    <div class="search-bg d-none d-md-flex align-items-center">
+      <i class="bi bi-search text-muted"></i>
+      <input type="text" placeholder="Search for a service or venue">
+    </div>
+    <a href="index.html" class="logo-text">
+      <i class="bi bi-geo-alt-fill text-warning fs-4"></i> Find Ustad
+    </a>
+    <a href="reservation-login.html" class="btn-login">
+      <i class="bi bi-person-circle me-2"></i> Login/Register
+    </a>
+  </div>
+
+  <div class="container hero-container">
+    <img src="hero-banner.png" alt="Hero Banner" class="hero-img">
+    
+    <a href="javascript:void(0)" onclick="pilihUstad('Ustad Felix Siauw', 'ustad-felix.jpeg')" class="hero-btn-overlay" title="Reservasi Sekarang"></a>
+  </div>
+
+  <div class="container">
+    <h3 class="section-header">Masalah yang ingin kita atasi</h3>
+    <div class="text-center">
+      <img src="icon-masalah.png" alt="Icons Masalah" class="img-fluid" style="max-height: 250px;">
+    </div>
+  </div>
+
+  <div class="container mt-5">
+    <h3 class="section-header text-start border-start border-5 border-success ps-3">Pilih Ustad Pilihan</h3>
+    
+    <div id="ustadCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        
+        <div class="carousel-item active">
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="ustad-card" onclick="pilihUstad('Ustad Khalid Basalamah', 'ustad-khalid.jpeg')">
+                <img src="ustad-khalid.jpeg" class="ustad-photo" alt="Ustad Khalid">
+                <div class="ustad-name">Ustad Khalid Basalamah</div>
+                <div class="ustad-spec">Ahli Tafsir & Sejarah</div>
+                <button class="btn btn-sm btn-outline-success rounded-pill px-4">Pilih</button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="ustad-card" onclick="pilihUstad('Ustad Abdul Somad', 'ustad-somad.jpeg')">
+                <img src="ustad-somad.jpeg" class="ustad-photo" alt="Ustad Somad">
+                <div class="ustad-name">Ustad Abdul Somad</div>
+                <div class="ustad-spec">Ahli Ilmu Hadits & Fiqih</div>
+                <button class="btn btn-sm btn-outline-success rounded-pill px-4">Pilih</button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="ustad-card" onclick="pilihUstad('Ustad Dasad Latif', 'ustad-dasad.jpeg')">
+                <img src="ustad-dasad.jpeg" class="ustad-photo" alt="Ustad Dasad">
+                <div class="ustad-name">Ustad Das'ad Latif</div>
+                <div class="ustad-spec">Dakwah Humor & Sosial</div>
+                <button class="btn btn-sm btn-outline-success rounded-pill px-4">Pilih</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="ustad-card" onclick="pilihUstad('Ustad Hanan Attaki', 'ustad-hanan.jpeg')">
+                <img src="ustad-hanan.jpeg" class="ustad-photo" alt="Ustad Hanan">
+                <div class="ustad-name">Ustad Hanan Attaki</div>
+                <div class="ustad-spec">Pemuda & Tadabbur</div>
+                <button class="btn btn-sm btn-outline-success rounded-pill px-4">Pilih</button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="ustad-card" onclick="pilihUstad('Ustad Adi Hidayat', 'ustad-adi.jpeg')">
+                <img src="ustad-adi.jpeg" class="ustad-photo" alt="Ustad Adi">
+                <div class="ustad-name">Ustad Adi Hidayat</div>
+                <div class="ustad-spec">Ahli Quran & Sunnah</div>
+                <button class="btn btn-sm btn-outline-success rounded-pill px-4">Pilih</button>
+              </div>
+            </div>
+             <div class="col-md-4">
+              <div class="ustad-card" onclick="pilihUstad('Ustad Felix Siauw', 'ustad-felix.jpeg')">
+                <img src="ustad-felix.jpeg" class="ustad-photo" alt="Ustad Felix">
+                <div class="ustad-name">Ustad Felix Siauw</div>
+                <div class="ustad-spec">Inspirasi Hijrah & Sejarah</div>
+                <button class="btn btn-sm btn-outline-success rounded-pill px-4">Pilih</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      <button class="carousel-control-prev" type="button" data-bs-target="#ustadCarousel" data-bs-slide="prev" style="width: 5%;">
+        <span class="carousel-control-prev-icon bg-success rounded-circle" aria-hidden="true"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#ustadCarousel" data-bs-slide="next" style="width: 5%;">
+        <span class="carousel-control-next-icon bg-success rounded-circle" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="container mt-5 text-center">
+    <h3 class="section-header">Layanan kami</h3>
+    <a href="reservation-layanan.html">
+      <img src="icon-layanan.png" alt="Pilihan Layanan" class="img-fluid" style="max-height: 350px; cursor: pointer;">
+    </a>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <a href="#" class="logo-text mb-3 d-inline-block">
+            <i class="bi bi-geo-alt-fill text-warning"></i> Find Ustad
+          </a>
+          <p class="text-muted small">
+            Aplikasi penyedia jasa reservasi ustad terstandarisasi untuk memaksimalkan wawasan keagamaan yang berkualitas berbasis IoT.
+          </p>
+        </div>
+        <div class="col-md-2 offset-md-1">
+          <h6>COMPANY</h6>
+          <a href="#">Tentang Kami</a>
+          <a href="#">Daftar Jadi Ustad</a>
+          <a href="#">Blog Islami</a>
+          <a href="#">Karir</a>
+        </div>
+        <div class="col-md-2">
+          <h6>HELP CENTER</h6>
+          <a href="#">Panduan Reservasi</a>
+          <a href="#">Syarat & Ketentuan</a>
+          <a href="#">Kebijakan Privasi</a>
+          <a href="#">FAQ</a>
+        </div>
+        <div class="col-md-3">
+          <h6>CONTACT INFO</h6>
+          <p class="text-muted mb-1">Phone: +62 853-5323-5654</p>
+          <p class="text-muted mb-1">Email: findustad@gmail.com</p>
+          <p class="text-muted mb-1">Universitas Negeri Jakarta</p>
+          <div class="fs-4 text-muted mt-3">
+              <a href="#" class="text-muted text-decoration-none"><i class="bi bi-instagram me-3"></i></a>
+              <a href="#" class="text-muted text-decoration-none"><i class="bi bi-whatsapp me-3"></i></a>
+              <a href="#" class="text-muted text-decoration-none"><i class="bi bi-tiktok"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    function pilihUstad(nama, foto) {
+        // 1. Simpan Data ke Penyimpanan Browser
+        localStorage.setItem('selectedUstadName', nama);
+        localStorage.setItem('selectedUstadImage', foto);
+        
+        // 2. Pindah ke Halaman Layanan
+        window.location.href = 'reservation-layanan.html';
+    }
+  </script>
+</body>
+</html>
