@@ -1,164 +1,101 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Reservasi – Login (Simulasi)</title>
-
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-  
+  <title>Pilih Lokasi</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <style>
-    :root { --fu-green:#5b7b5a; }
-    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
-    .top-bar{background:#e5e7eb;padding:6px 0;font-size:0.85rem;}
-    .top-search{border-radius:999px;padding-inline:12px;font-size:0.85rem;}
-    .navbar-brand span{color:var(--fu-green);font-weight:700;}
-    .btn-pill{border-radius:999px;}
-    .step-nav{border-bottom:1px solid #e5e7eb;padding:16px 0;margin-bottom:32px;}
-    .step-nav ul{list-style:none;padding-left:0;margin-bottom:0;display:flex;justify-content:center;gap:40px;font-size:0.9rem;}
-    .step-nav li{position:relative;padding-bottom:4px;color:#6b7280;}
-    .step-nav li.completed{color:#111827;font-weight:600;}
-    .step-nav li.completed::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--fu-green);margin-inline:auto;width:70%;}
-    .step-nav li.active{color:#111827;font-weight:600;}
-    .step-nav li.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:#9ca3af;margin-inline:auto;width:70%;}
-    footer{background:#f9fafb;padding:16px 0;font-size:0.85rem;margin-top:40px;}
-    /* Gaya untuk alert box yang tersembunyi */
-    .alert-hidden { display: none; }
+    body { font-family: 'Segoe UI', sans-serif; background-color: #fff; }
+    .logo-text { font-weight: bold; font-size: 1.25rem; color: #6d8c6b; text-decoration: none; }
+    .step-nav { text-align: center; margin: 40px 0; color: #888; font-size: 0.9rem; }
+    .step-item { display: inline-block; margin: 0 15px; position: relative; }
+    .step-item.active { color: #000; font-weight: bold; }
+    .step-item.active::after { content: ''; display: block; width: 100%; height: 2px; background: #000; margin-top: 5px; }
+    .map-wrapper { position: relative; width: 100%; height: 600px; background: #eee; overflow: hidden; border-top: 1px solid #ddd; }
+    .floating-card { position: absolute; top: 50px; right: 50px; width: 350px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.15); z-index: 100; }
+    .location-header { border: 1px solid #6d8c6b; border-radius: 8px; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; color: #333; margin-bottom: 20px; background: #fff; }
+    .location-list { list-style: none; padding: 0; margin: 0; }
+    .location-item { padding: 12px 0; border-bottom: 1px solid #f0f0f0; color: #999; cursor: pointer; display: flex; align-items: center; gap: 15px; font-size: 0.95rem; }
+    .location-item.selected { color: #4a90a4; font-weight: 500; }
+    .check-icon { font-size: 1.1rem; }
+    .location-item .check-icon { color: #ccc; }
+    .location-item.selected .check-icon { color: #4a90a4; }
+    .btn-lanjut { background-color: #657e62; color: white; width: 100%; border: none; padding: 12px; border-radius: 8px; font-weight: 600; margin-top: 25px; }
+    .btn-lanjut:hover { background-color: #5a7558; color: white; }
+    @media (max-width: 768px) { .floating-card { position: relative; top: 0; right: 0; width: 90%; margin: 20px auto; } .map-wrapper { height: 400px; } }
+    .footer { margin-top: 0; padding: 50px 0; background-color: #fff; font-size: 0.9rem; border-top: 1px solid #eee; }
+    .footer h6 { color: #6d8c6b; font-weight: bold; margin-bottom: 20px; }
+    .footer a { text-decoration: none; color: #666; margin-bottom: 10px; display: block; }
   </style>
 </head>
 <body>
-
-  <div class="top-bar">
+  <nav class="navbar bg-light py-3 mb-0">
     <div class="container d-flex justify-content-between align-items-center">
-      <input class="form-control form-control-sm top-search me-2" placeholder="Search for a service or venue">
-      <button class="btn btn-sm btn-outline-dark btn-pill">Login / Register</button>
-    </div>
-  </div>
-
-  <nav class="navbar navbar-light bg-white shadow-sm">
-    <div class="container">
-      <a class="navbar-brand" href="index.html"><span>Find Ustad</span></a>
-      <button class="btn btn-sm btn-outline-success btn-pill">Ask Ustad</button>
+       <div class="bg-white rounded-pill px-3 py-2 border d-flex align-items-center" style="width: 300px;">
+          <i class="bi bi-search text-muted me-2"></i> <span class="text-muted small">Search for a service or venue</span>
+       </div>
+       <a class="logo-text mx-auto" href="index.html"><i class="bi bi-geo-alt-fill text-warning"></i> Find Ustad</a>
+       <button class="btn btn-secondary rounded-pill px-4" onclick="window.location.href='reservation-login.html'">Login/Register</button>
     </div>
   </nav>
 
-  <div class="step-nav">
-    <div class="container">
-      <ul>
-        <li class="completed">1. Pilih Layanan</li>
-        <li class="completed">2. Pilih Lokasi Kegiatan</li>
-        <li class="completed">3. Pilih Waktu</li>
-        <li class="active">4. Review & Confirm / Payment</li>
-      </ul>
+  <div class="container bg-white pt-4 pb-2">
+      <div class="step-nav">
+        <span class="step-item">1. Pilih Layanan</span>
+        <span class="step-item active">2. Pilih Lokasi & Waktu</span>
+        <span class="step-item">3. Review & Confirm</span>
+        <span class="step-item">4. Payment</span>
+      </div>
+      <div class="text-center mb-4">
+        <h3>Pilih Lokasi Kegiatan</h3>
+        <p class="text-muted">Pilih lokasi kegiatan kamu diadakan</p>
+      </div>
+  </div>
+
+  <div class="map-wrapper">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.425310659614!2d106.885685075037!3d-6.208173993779831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f46ef581f1d1%3A0xc3f8e58309539352!2sGOR%20Velodrome%20Jakarta!5e0!3m2!1sid!2sid!4v1701614917641!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <div class="floating-card">
+        <h6 class="fw-bold mb-3 small">Pilih Kota</h6>
+        <div class="location-header"><span><i class="bi bi-layers me-2"></i> Jakarta Timur</span><i class="bi bi-chevron-up"></i></div>
+        <ul class="location-list">
+            <li class="location-item" onclick="selectLocation(this)"><i class="bi bi-check-circle check-icon"></i> Jakarta Pusat</li>
+            <li class="location-item" onclick="selectLocation(this)"><i class="bi bi-check-circle check-icon"></i> Jakarta Selatan</li>
+            <li class="location-item selected" onclick="selectLocation(this)"><i class="bi bi-check-circle-fill check-icon"></i> Jakarta Timur</li>
+            <li class="location-item" onclick="selectLocation(this)"><i class="bi bi-check-circle check-icon"></i> Jakarta Barat</li>
+            <li class="location-item" onclick="selectLocation(this)"><i class="bi bi-check-circle check-icon"></i> Cibubur</li>
+        </ul>
+        <button class="btn-lanjut" onclick="window.location.href='reservation-waktu.html'">Lanjut</button>
     </div>
   </div>
 
-  <div class="container">
-    <div class="row justify-content-center mb-4">
-      <div class="col-md-6">
-        <h5 class="fw-semibold mb-3">Log in</h5>
-        <p class="small text-muted mb-4">
-          Pilih cara masuk untuk melanjutkan proses reservasi ustad.
-        </p>
-        
-        <div id="loginMessage" class="alert alert-hidden" role="alert"></div>
-
-        <button class="btn btn-outline-secondary w-100 mb-2 btn-pill" onclick="alert('Ini akan mengarahkan ke halaman Google OAuth');">
-          Continue with Google
-        </button>
-        <button class="btn btn-outline-secondary w-100 mb-2 btn-pill" onclick="alert('Ini akan mengarahkan ke halaman Facebook OAuth');">
-          Continue with Facebook
-        </button>
-
-        <div class="text-center my-3 small text-muted">atau masuk dengan email</div>
-        
-        <form id="loginForm">
-            <div class="mb-3">
-                <label for="emailInput" class="form-label small">Alamat Email</label>
-                <input type="email" class="form-control btn-pill" id="emailInput" name="email" required value="user@example.com">
-            </div>
-            <div class="mb-3">
-                <label for="passwordInput" class="form-label small">Kata Sandi</label>
-                <input type="password" class="form-control btn-pill" id="passwordInput" name="password" required value="password123">
-            </div>
-            <div class="d-grid">
-                <button type="submit" class="btn btn-success btn-pill mb-3">
-                    Log In
-                </button>
-            </div>
-        </form>
-
-        <div class="text-center small">
-          Belum punya akun?
-          <a href="#" class="text-decoration-none">Daftar sekarang</a> 
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <a href="#" class="logo-text mb-3 d-inline-block"><i class="bi bi-geo-alt-fill text-warning"></i> Find Ustad</a>
+          <p class="text-muted small">Aplikasi penyedia jasa reservasi ustad terstandarisasi untuk memaksimalkan wawasan keagamaan yang berkualitas berbasis IoT.</p>
         </div>
-
-        <hr class="my-4">
-        
-        <div class="d-flex justify-content-end">
-          <button
-            class="btn btn-secondary btn-pill"
-            onclick="window.location.href='reservation-review.html';"
-          >
-            
-          
+        <div class="col-md-2 offset-md-1"><h6>COMPANY</h6><a href="#">Tentang Kami</a><a href="#">Daftar Jadi Ustad</a><a href="#">Blog Islami</a><a href="#">Karir</a></div>
+        <div class="col-md-2"><h6>HELP CENTER</h6><a href="#">Panduan Reservasi</a><a href="#">Syarat & Ketentuan</a><a href="#">Kebijakan Privasi</a><a href="#">FAQ</a></div>
+        <div class="col-md-3"><h6>CONTACT INFO</h6><p class="text-muted mb-1">Phone: +62 853-5323-5654</p><p class="text-muted mb-1">Email: findustad@gmail.com</p><p class="text-muted mb-1">Universitas Negeri Jakarta</p>
+          <div class="fs-4 text-muted mt-3"><a href="#" class="text-muted"><i class="bi bi-instagram me-3"></i></a><a href="#" class="text-muted"><i class="bi bi-whatsapp me-3"></i></a><a href="#" class="text-muted"><i class="bi bi-tiktok"></i></a></div>
         </div>
       </div>
     </div>
-  </div>
-
-  <footer>
-    <div class="container d-flex justify-content-between">
-      <div>Find Ustad – Login Step</div>
-      <div>  HELP CENTER • CONTACT INFO</div>
-    </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  
   <script>
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-      // Mencegah formulir ter-submit secara default
-      event.preventDefault(); 
-      
-      const email = document.getElementById('emailInput').value;
-      const password = document.getElementById('passwordInput').value;
-      const messageElement = document.getElementById('loginMessage');
-      
-      // Mengatur kondisi simulasi
-      const VALID_EMAIL = 'bahlil123@gmail.com';
-      const VALID_PASSWORD = 'password123';
-      
-      // Membersihkan pesan sebelumnya
-      messageElement.className = 'alert alert-hidden';
-      messageElement.textContent = '';
-
-      // SIMULASI PROSES API (Di dunia nyata, ini adalah fetch() ke server)
-      // Jeda simulasi untuk menunjukkan proses
-      setTimeout(() => {
-        if (email === VALID_EMAIL && password === VALID_PASSWORD) {
-          // Login Berhasil
-          messageElement.classList.remove('alert-hidden', 'alert-danger');
-          messageElement.classList.add('alert-success');
-          messageElement.textContent = '✅ Login Berhasil! Mengarahkan ke halaman Review...';
-          
-          // Redirect setelah 2 detik
-          setTimeout(() => {
-            window.location.href = 'reservation-review.html';
-          }, 2000);
-          
-        } else {
-          // Login Gagal
-          messageElement.classList.remove('alert-hidden', 'alert-success');
-          messageElement.classList.add('alert-danger');
-          messageElement.textContent = '❌ Login Gagal. Email atau Kata Sandi salah.';
-        }
-      }, 500); // Jeda 500ms simulasi server response
-    });
+    function selectLocation(element) {
+        document.querySelectorAll('.location-item').forEach(item => {
+            item.classList.remove('selected');
+            item.querySelector('i').classList.remove('bi-check-circle-fill');
+            item.querySelector('i').classList.add('bi-check-circle');
+        });
+        element.classList.add('selected');
+        element.querySelector('i').classList.remove('bi-check-circle');
+        element.querySelector('i').classList.add('bi-check-circle-fill');
+    }
   </script>
 </body>
 </html>
